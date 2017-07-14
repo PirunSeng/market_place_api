@@ -9,6 +9,7 @@ gem 'jquery-rails'
 #Api gems
 gem 'active_model_serializers'
 gem 'sdoc', '~> 0.4.0', group: :doc
+gem "devise"
 
 group :test do
   gem "rspec-rails", "~> 2.14"
