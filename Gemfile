@@ -12,9 +12,10 @@ gem 'sdoc', '~> 0.4.0', group: :doc
 gem "devise"
 
 group :test do
-  gem "rspec-rails", "~> 2.14"
+  gem 'rspec-rails', '~> 3.4'
+  gem 'shoulda-matchers'
   gem "factory_girl_rails"
-  gem 'ffaker'
+  gem 'ffaker', '~> 2.1.0'
 end
 
 group :development do
