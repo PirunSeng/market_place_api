@@ -10,6 +10,8 @@ gem 'jquery-rails'
 gem 'active_model_serializers'
 gem 'sdoc', '~> 0.4.0', group: :doc
 gem "devise"
+gem 'font-awesome-rails', '~> 4.7'
+gem 'simple_form', '~> 3.2'
 
 group :test do
   gem 'rspec-rails', '~> 3.4'
