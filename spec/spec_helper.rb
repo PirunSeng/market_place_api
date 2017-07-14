@@ -4,7 +4,7 @@ require 'rails_helper'
 require 'shoulda/matchers'
 require 'factory_girl'
 require 'ffaker'
-Dir[Rails.root.join('spec/supports/**/*.rb')].each { |f| require f }
+Dir[Rails.root.join('spec/support/**/*.rb')].each { |f| require f }
 #
 # See http://rubydoc.info/gems/rspec-core/RSpec/Core/Configuration
 RSpec.configure do |config|
@@ -33,6 +33,9 @@ RSpec.configure do |config|
   end
 
   config.shared_context_metadata_behavior = :apply_to_host_groups
+
+  #Including to test requests
+  config.include Request::JsonHelpers, type: :controller
 end
 
 Shoulda::Matchers.configure do |config|
