@@ -9,6 +9,23 @@ describe User do
   it { should respond_to(:auth_token) }
 
   it { should be_valid }
+
+  it { should have_many(:products) }
+
+  describe '#products association' do
+    before do
+      @user.save
+      3.times { FactoryGirl.create(:product, user: @user) }
+    end
+
+    it 'destroys products associated with the user' do
+      products = @user.products
+      @user.destroy
+      products.each do |product|
+        expect(Product.find(product)).to raise_error ActiveRecord::RecordNotFound
+      end
+    end
+  end
 end
 
 describe "when email is not present" do
