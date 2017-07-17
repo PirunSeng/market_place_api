@@ -23,7 +23,7 @@ describe Authenticable do
       @user = FactoryGirl.create :user
       authentication.stub(:current_user).and_return(nil)
       response.stub(:response_code).and_return(401)
-      response.stube(:body).and_return({'errors' => 'Not authenticated'}.to_json)
+      response.stub(:body).and_return({'errors' => 'Not authenticated'}.to_json)
       authentication.stub(:response).and_return(response)
     end
 
