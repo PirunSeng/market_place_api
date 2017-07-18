@@ -6,7 +6,7 @@ describe Api::V1::ProductsController do
     end
 
     it 'returns the information about a reporter on a hash' do
-      product_resonse = json_response
+      product_resonse = json_response[:product]
       expect(product_resonse[:title]).to eq @product.title
     end
 
@@ -40,8 +40,8 @@ describe Api::V1::ProductsController do
       end
 
       it 'renders json represent to the post product' do
-        product_response = json_response
-        expect(json_response[:title]).to eq(@product_attributes[:title])
+        product_response = json_response[:product]
+        expect(product_response[:title]).to eq(@product_attributes[:title])
       end
 
       it { should respond_with 201 }
@@ -80,7 +80,7 @@ describe Api::V1::ProductsController do
         patch :update, { user_id: @user.id, id: @product.id, product: { title: 'Apple' } }
       end
       it 'renders json represent updated product' do
-        product_response = json_response
+        product_response = json_response[:product]
         expect(product_response[:title]).to eq('Apple')
       end
       it { should respond_with 201 }
