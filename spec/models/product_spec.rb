@@ -1,3 +1,8 @@
+describe Product, 'association' do
+  it { is_expected.to have_many(:placements) }
+  it { is_expected.to have_many(:orders).through(:placements) }
+end
+
 describe Product do
   let(:product) { FactoryGirl.build(:product) }
   subject { product }
