@@ -10,7 +10,8 @@ describe User do
 
   it { should be_valid }
 
-  it { should have_many(:products) }
+  it { should have_many(:products).dependent(:destroy) }
+  it { should have_many(:orders).dependent(:destroy) }
 
   describe '#products association' do
     before do
