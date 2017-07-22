@@ -12,6 +12,7 @@ Rails.application.routes.draw do
 
       resources :sessions, only: [:create, :destroy]
       resources :products, only: [:show, :index]
+      resources :orders, only: [:index]
     end
   end
 end
