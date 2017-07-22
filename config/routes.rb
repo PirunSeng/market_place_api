@@ -12,7 +12,7 @@ Rails.application.routes.draw do
 
       resources :sessions, only: [:create, :destroy]
       resources :products, only: [:show, :index]
-      resources :orders, only: [:index]
+      resources :orders, only: [:index, :show]
     end
   end
 end
