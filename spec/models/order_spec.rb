@@ -13,3 +13,16 @@ describe Order do
   it { should have_many(:placements) }
   it { should have_many(:products).through(:placements) }
 end
+
+describe Order, '#set_total!' do
+  before(:each) do
+    product_a = FactoryGirl.create :product, price: 100
+    product_b = FactoryGirl.create :product, price: 85
+
+    @order = FactoryGirl.build :order, product_ids: [product_a.id, product_b.id]
+  end
+
+  it 'returns total of products ordered' do
+    expect(@order.set_total!).to eq(185)
+  end
+end
