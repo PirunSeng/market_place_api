@@ -18,6 +18,7 @@ group :test do
   gem 'shoulda-matchers'
   gem "factory_girl_rails"
   gem 'ffaker', '~> 2.1.0'
+  gem "email_spec"
 end
 
 group :development do

@@ -4,6 +4,8 @@ require 'rails_helper'
 require 'shoulda/matchers'
 require 'factory_girl'
 require 'ffaker'
+require 'email_spec'
+require 'email_spec/rspec'
 Dir[Rails.root.join('spec/support/**/*.rb')].each { |f| require f }
 #
 # See http://rubydoc.info/gems/rspec-core/RSpec/Core/Configuration
@@ -41,6 +43,9 @@ RSpec.configure do |config|
   config.before(:each, type: :controller) do
     include_default_accept_headers
   end
+
+  config.include(EmailSpec::Helpers)
+  config.include(EmailSpec::Matchers)
 end
 
 Shoulda::Matchers.configure do |config|
