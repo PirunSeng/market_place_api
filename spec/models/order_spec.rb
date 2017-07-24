@@ -6,8 +6,8 @@ describe Order do
   it { should respond_to(:user_id) }
 
   it { should validate_presence_of(:user_id) }
-  it { should validate_presence_of(:total) }
-  it { should validate_numericality_of(:total).is_greater_than_or_equal_to(0) }
+  # it { should validate_presence_of(:total) }
+  # it { should validate_numericality_of(:total).is_greater_than_or_equal_to(0) }
 
   it { should belong_to :user }
   it { should have_many(:placements) }
@@ -18,11 +18,17 @@ describe Order do
       product_a = FactoryGirl.create :product, price: 100
       product_b = FactoryGirl.create :product, price: 85
 
-      @order = FactoryGirl.build :order, product_ids: [product_a.id, product_b.id]
+      placement_a = FactoryGirl.build :placement, product: product_a, quantity: 3
+      placement_b = FactoryGirl.build :placement, product: product_b, quantity: 15
+
+      @order = FactoryGirl.build :order
+
+      @order.placements << placement_a
+      @order.placements << placement_b
     end
 
     it 'returns total of products ordered' do
-      expect(@order.set_total!).to eq(185)
+      expect{@order.set_total!}.to change{@order.total.to_f}.from(0).to(1575)
     end
   end
 
