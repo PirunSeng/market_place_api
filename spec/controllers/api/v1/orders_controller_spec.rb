@@ -51,13 +51,18 @@ describe Api::V1::OrdersController do
 
         product_a = FactoryGirl.create :product
         product_b = FactoryGirl.create :product
-        order_params = { product_ids: [product_a.id, product_b.id] }
+        order_params = { product_ids: [[product_a.id, 2], [product_b.id, 3]] }
         post :create, user_id: current_user.id, order: order_params
       end
 
       it "returns the just user order record" do
         order_response = json_response[:order]
         expect(order_response[:id]).to be_present
+      end
+
+      it 'embeds the two product objects related to the order' do
+        order_response = json_response[:order]
+        expect(order_response[:products].size).to eq(2)
       end
 
       it { should respond_with 201 }
