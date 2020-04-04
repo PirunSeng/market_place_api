@@ -14,13 +14,13 @@ gem 'font-awesome-rails', '~> 4.7'
 gem 'simple_form', '~> 3.2'
 gem 'pg', '~> 0.20'
 
-group :test do
-  gem 'rspec-rails', '~> 3.4'
-  gem 'shoulda-matchers'
-  gem "factory_girl_rails"
-  gem 'ffaker', '~> 2.1.0'
-  gem "email_spec"
-end
+# group :test do
+#   gem 'rspec-rails', '~> 3.4'
+#   gem 'shoulda-matchers'
+#   gem "factory_girl_rails"
+#   gem 'ffaker', '~> 2.1.0'
+#   gem "email_spec"
+# end
 
 group :development, :test do
   gem 'pry'
