@@ -13,6 +13,9 @@
 
 ActiveRecord::Schema.define(version: 20200404034857) do
 
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
+
   create_table "orders", force: :cascade do |t|
     t.integer  "user_id"
     t.decimal  "total",      default: 0.0
@@ -20,7 +23,7 @@ ActiveRecord::Schema.define(version: 20200404034857) do
     t.datetime "updated_at",               null: false
   end
 
-  add_index "orders", ["user_id"], name: "index_orders_on_user_id"
+  add_index "orders", ["user_id"], name: "index_orders_on_user_id", using: :btree
 
   create_table "placements", force: :cascade do |t|
     t.integer  "order_id"
@@ -30,8 +33,8 @@ ActiveRecord::Schema.define(version: 20200404034857) do
     t.integer  "quantity",   default: 0
   end
 
-  add_index "placements", ["order_id"], name: "index_placements_on_order_id"
-  add_index "placements", ["product_id"], name: "index_placements_on_product_id"
+  add_index "placements", ["order_id"], name: "index_placements_on_order_id", using: :btree
+  add_index "placements", ["product_id"], name: "index_placements_on_product_id", using: :btree
 
   create_table "products", force: :cascade do |t|
     t.string   "title",      default: ""
@@ -44,7 +47,7 @@ ActiveRecord::Schema.define(version: 20200404034857) do
     t.string   "image",      default: ""
   end
 
-  add_index "products", ["user_id"], name: "index_products_on_user_id"
+  add_index "products", ["user_id"], name: "index_products_on_user_id", using: :btree
 
   create_table "users", force: :cascade do |t|
     t.string   "email",                  default: "", null: false
@@ -62,8 +65,11 @@ ActiveRecord::Schema.define(version: 20200404034857) do
     t.string   "auth_token",             default: ""
   end
 
-  add_index "users", ["auth_token"], name: "index_users_on_auth_token", unique: true
-  add_index "users", ["email"], name: "index_users_on_email", unique: true
-  add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
+  add_index "users", ["auth_token"], name: "index_users_on_auth_token", unique: true, using: :btree
+  add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
+  add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
 
+  add_foreign_key "orders", "users"
+  add_foreign_key "placements", "orders"
+  add_foreign_key "placements", "products"
 end
