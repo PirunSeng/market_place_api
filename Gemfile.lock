@@ -212,8 +212,8 @@ DEPENDENCIES
   sdoc (~> 0.4.0)
   shoulda-matchers
   simple_form (~> 3.2)
-  sqlite3
+  sqlite3 (= 1.3.13)
   uglifier (>= 1.3.0)
 
 BUNDLED WITH
-   1.14.5
+   1.17.3

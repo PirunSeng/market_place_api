@@ -12,6 +12,7 @@ gem 'sdoc', '~> 0.4.0', group: :doc
 gem "devise"
 gem 'font-awesome-rails', '~> 4.7'
 gem 'simple_form', '~> 3.2'
+gem 'sqlite3', '1.3.13'
 
 group :test do
   gem 'rspec-rails', '~> 3.4'
@@ -19,10 +20,6 @@ group :test do
   gem "factory_girl_rails"
   gem 'ffaker', '~> 2.1.0'
   gem "email_spec"
-end
-
-group :development do
-  gem 'sqlite3'
 end
 
 group :development, :test do

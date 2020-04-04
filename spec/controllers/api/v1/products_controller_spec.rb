@@ -10,25 +10,26 @@ describe Api::V1::ProductsController do
       expect(product_resonse[:title]).to eq @product.title
     end
 
-    it 'has the user as a embeded object' do
-      product_response = json_response[:product]
-      expect(product_response[:user][:email]).to eql @product.user.email
-    end
-
     it { should respond_with 200 }
   end
 
   describe "GET #index" do
     before(:each) do
+      @user = FactoryGirl.create(:user, email: FFaker::Internet.email)
       4.times do |_|
-        user = FactoryGirl.create(:user, email: FFaker::Internet.email)
-        FactoryGirl.create(:product, user: user)
+        FactoryGirl.create(:product, user_id: @user.id)
       end
-      get :index
+      # get :index
+    end
+
+    context 'when not receiving product ids' do
+      before(:each) do
+        get :index
+      end
     end
 
     it "returns 4 records from the database" do
-      products_response = json_response
+      products_response = json_response[:product]
       expect(products_response[:products].size).to eq(4)
     end
 
@@ -36,10 +37,29 @@ describe Api::V1::ProductsController do
       products_response = json_response[:products]
       products_response.each do |product_response|
         expect(product_response[:user]).to be_present
+        expect(product_response).to respond_with 200
       end
     end
 
-    it { should respond_with 200 }
+    # it { expect(@products_response).to respond_with 200 }
+
+    context "when product_ids parameter is sent" do
+      before(:each) do
+        @user = FactoryGirl.create :user
+
+        3.times.each do |_|
+          FactoryGirl.create :product, user: @user
+        end
+        get :index, product_ids: @user.product_ids
+      end
+
+      it "returns just the products that belong to the user" do
+        products_response = json_response[:products]
+        products_response.each do |product_response|
+          expect(product_response[:user][:email]).to eq(@user.email)
+        end
+      end
+    end
   end
 
   describe 'POST #create' do

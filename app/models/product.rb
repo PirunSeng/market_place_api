@@ -3,7 +3,8 @@ class Product < ActiveRecord::Base
   has_many :placements
   has_many :orders, through: :placements
 
-  validates :title, :price, :user_id, presence: true
+  # validates :title, :price, :user_id, presence: true
+  validates :title, :price, presence: true
   validates :price, numericality: { greater_than_or_equal_to: 0 }
 
   scope :filter_by_title, -> (value) { where('lower(title) LIKE ?', "%#{value.downcase}%") }
